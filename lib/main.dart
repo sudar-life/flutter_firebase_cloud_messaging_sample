@@ -5,6 +5,8 @@ import 'package:flutter_chat_sample/src/controller/notification_controller.dart'
 import 'package:flutter_chat_sample/src/page/message_page.dart';
 import 'package:get/get.dart';
 
+import 'src/controller/notification_controller.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -26,11 +28,28 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(),
-        body: Obx(() {
-          if (NotificationController.to.message.isNotEmpty)
-            return MessageBox(); // 원하는 페이지 or 이벤트 처리
-          return Container();
-        }),
+        body: Container(
+          child: Obx(() {
+            if (NotificationController.to.message.isNotEmpty) {
+              showDialog(
+                  context: context,
+                  builder: (_) => new AlertDialog(
+                        title: Text("dialog"),
+                        content:
+                            Text(NotificationController.to.message.keys.first),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text('Close me!'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      ));
+            }
+            return Container(); //
+          }),
+        ),
       ),
     );
   }

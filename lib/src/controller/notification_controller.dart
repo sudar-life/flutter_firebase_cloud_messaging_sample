@@ -34,6 +34,7 @@ class NotificationController extends GetxController {
 
   Future<void> _onResume(Map<String, dynamic> message) {
     print("_onResume : $message");
+    _actionOnNotification(message);
     return null;
   }
 
@@ -49,6 +50,7 @@ class NotificationController extends GetxController {
 
   Future<void> _onMessage(Map<String, dynamic> message) {
     print("_onMessage : $message");
+    _actionOnNotification(message);
     return null;
   }
 }
